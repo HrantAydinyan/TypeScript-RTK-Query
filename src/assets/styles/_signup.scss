@@ -1,0 +1,108 @@
+.signup-container{
+    min-height: 100vh;
+    // padding-top: 88px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: #009DDF;
+    justify-content: center;
+    align-items: center;
+
+    .signup-content {
+        width:100%;
+        height:100%;
+        max-width:781px;
+        // height:622px;
+        background-color: #fff;
+        padding:15px;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+
+        .signup-title{
+            text-align: center;
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 35px;
+            color:#28A4DA;
+        }
+
+        .signup-avatar{
+            display: flex;
+            justify-content: center;
+
+            & span> div { 
+                width:120px;
+                height:120px;
+                cursor: pointer;
+            }
+        }
+        form{
+            padding: 20px 43px 20px;
+        }
+
+        .signup-fields{
+            width: 100%;
+            margin:auto;
+            justify-content: center;
+
+            
+            &-item {
+                max-width: 340px;
+                width: 100%;
+                // opacity: 0.6;
+
+                .MuiInputBase-root {
+                    max-width: 340px !important;
+                    width: 100% !important;
+                    margin:20px 21px 0px 0px !important;
+                    border-radius: 15px !important;
+                    -webkit-border-radius: 15px !important;
+                    -moz-border-radius: 15px !important;
+                    -ms-border-radius: 15px !important;
+                    -o-border-radius: 15px !important;
+                    box-sizing: border-box !important;                 
+                }
+            }   
+        }
+
+        .signup-submit{
+            text-align: center;
+            
+            button {
+                max-width: 196px;
+                width:100%;
+                height: 39px;
+                background: #28A4DA;
+                border: none;
+                color: #fff;
+                font-size: 16px;
+                line-height: 19px;
+                font-weight: 600;
+                margin-top:40px;
+                cursor: pointer;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                -ms-border-radius: 10px;
+                -o-border-radius: 10px;
+            }
+        }
+
+        .signup-footer{
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 960px){
+    .signup-fields{
+        & div {
+            text-align: center;
+        }
+    }
+}

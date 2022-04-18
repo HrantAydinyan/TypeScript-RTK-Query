@@ -1,0 +1,36 @@
+.header{
+    background: white !important;
+    height: 80px;
+
+    .MuiContainer-maxWidthXl {
+        max-width: 1120px !important;
+    }
+    .MuiToolbar-regular {
+        min-height: 80px !important;
+    }
+    .menu {
+        display: flex;
+        align-items: center;
+        font-size: toRem(18);
+        line-height: toRem(21);
+        width: 100%;
+       
+        margin: 0 auto;
+        .user-info{
+            color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & > div{
+                margin-right: 10px;   
+            }
+        }
+        li {
+            list-style: none;
+        }
+    }
+    &-toolbar {
+        float: right;
+    }
+}
