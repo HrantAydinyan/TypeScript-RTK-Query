@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Container, Box, Button, Avatar, Grid } from '@material
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { authSlice } from '../../store/reducers/AuthSlice';
+import { Link } from 'react-router-dom';
 
 const Header: FC = () => {
     const { user } = useAppSelector((state) => state.auth);
@@ -19,6 +20,9 @@ const Header: FC = () => {
             <AppBar position="fixed" className="header">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters className="header-toolbar">
+                        <Box>
+                            <Link to="/">Post</Link>
+                        </Box>
                         <ul className="menu">
                             <li>
                                 <Grid className="user-info">

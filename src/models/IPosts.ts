@@ -29,6 +29,15 @@ export interface IPostResponse {
     results: IPost[];
 }
 
+export interface IPostResponseSingle {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    category: ICategory;
+    author: IAUthor;
+}
+
 export interface ICategory {
     id: number;
     name: string;
