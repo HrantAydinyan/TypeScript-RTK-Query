@@ -3,17 +3,26 @@ import { AppBar, Toolbar, Container, Box, Button, Avatar, Grid } from '@material
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { authSlice } from '../../store/reducers/AuthSlice';
+import { Link } from 'react-router-dom';
+import { authAPI } from '../../services/AuthService';
 
 const Header: FC = () => {
+    const [logout] = authAPI.useLogoutMutation();
     const { user } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const logout = () => {
+
+    const onLogout = () => {
+        const refresh = localStorage.getItem('refresh');
+
+        if (refresh) logout(refresh);
+
         localStorage.removeItem('access');
         localStorage.removeItem('refresh');
         dispatch(authSlice.actions.logout());
         navigate('/signin');
     };
+
     return (
         <Box>
             <AppBar position="fixed" className="header">
@@ -29,7 +38,7 @@ const Header: FC = () => {
                                 </Grid>
                             </li>
                             <li className="">
-                                <Button onClick={logout} color="primary" size="large">
+                                <Button onClick={onLogout} color="primary" size="large">
                                     Logout
                                 </Button>
                             </li>
