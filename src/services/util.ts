@@ -24,26 +24,20 @@ export const baseQueryWithReauth: BaseQueryFn<
     FetchBaseQueryError
 > = async (args, api, extraOptions) => {
     const result = await baseQuery(args, api, extraOptions);
-    // if (result.error && result.error.status === 401) {
-    // try to get a new token
-    //     result = await baseQuery(args, api, extraOptions);
-    // const refreshResult = await baseQuery('/api/user/refresh/', api, extraOptions);
+    if (result.error && result.error.status === 401) {
+        const refresh_token: string | null = localStorage.getItem('refresh');
 
-    const refresh_token: string | null = localStorage.getItem('refresh');
+        if (refresh_token) {
+            if (!isAlreadyFetchingAccessToken) await getAccessToken(refresh_token);
 
-    if (refresh_token) {
-        if (!isAlreadyFetchingAccessToken) await getAccessToken(refresh_token);
-
-        const retryOriginalRequest: any = new Promise((resolve) => {
-            addSubscriber((accessToken: string) => {
-                // originalRequest.headers.Authorization = 'Bearer ' + accessToken;
-                console.log('1111111');
-                resolve(baseQuery(args, api, extraOptions));
+            const retryOriginalRequest: any = new Promise((resolve) => {
+                addSubscriber((accessToken: string) => {
+                    resolve(baseQuery(args, api, extraOptions));
+                });
             });
-        });
-        return retryOriginalRequest;
+            return retryOriginalRequest;
+        }
     }
-    // }
     return result;
 };
 
@@ -67,7 +61,6 @@ async function getAccessToken(refresh: string) {
         .then((res) => res.json())
         .then((response: any) => {
             isAlreadyFetchingAccessToken = false;
-            console.log(response);
             const accessToken = response?.access;
             const refreshToken = response?.refresh;
             localStorage.setItem('access', accessToken);
