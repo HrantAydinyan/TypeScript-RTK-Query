@@ -28,6 +28,9 @@ const Header: FC = () => {
             <AppBar position="fixed" className="header">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters className="header-toolbar">
+                        <Box>
+                            <Link to="/">Post</Link>
+                        </Box>
                         <ul className="menu">
                             <li>
                                 <Grid className="user-info">

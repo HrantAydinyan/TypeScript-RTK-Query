@@ -3,13 +3,15 @@ import { Box, Grid, IconButton } from '@material-ui/core';
 import { Delete, Edit } from '@material-ui/icons';
 import { IPost } from '../../models/IPosts';
 import { toShort } from '../../helpers/toShort';
+import { Link } from 'react-router-dom';
 
 interface IPostProps {
     post: IPost;
+    onOpenDeleteModal: (id: number) => void;
 }
 
-const Post: FC<IPostProps> = ({ post }) => {
-    const { category, description, image, title } = post;
+const Post: FC<IPostProps> = ({ post, onOpenDeleteModal }) => {
+    const { category, description, image, title, id } = post;
     return (
         <Box className="post">
             <Grid container className="post-content">
@@ -26,16 +28,14 @@ const Post: FC<IPostProps> = ({ post }) => {
                                 <div className="post-info-body">{title}</div>
                             </Grid>
                             <Grid item md={4} className="post-actions">
-                                <IconButton
-                                    // onClick={() => onOpenEditModal(user?.id)}
-                                    aria-label="Edit user"
-                                    className="post-edit"
-                                >
-                                    <Edit className="post-edit-icon" />
-                                </IconButton>
+                                <Link to={`/post/edit/${id}`}>
+                                    <IconButton aria-label="Edit user" className="post-edit">
+                                        <Edit className="post-edit-icon" />
+                                    </IconButton>
+                                </Link>
                                 <IconButton
                                     aria-label="Delete user"
-                                    // onClick={() => onOpenDeleteModal(user?.id)}
+                                    onClick={() => onOpenDeleteModal(id)}
                                     className="post-delete"
                                 >
                                     <Delete className="post-delete-icon" />

@@ -1,0 +1,33 @@
+.cancel-popup {
+    .MuiDialog-container {
+      .MuiDialog-paperWidthSm {
+        max-width: 360px;
+      }
+    }
+  
+    &-content {
+      padding: 32px;
+  
+      .title {
+        font-weight: bold;
+        font-size: 1.125rem;
+        line-height: 1.25rem;
+        color: #000;
+        margin-bottom: 20px;
+      }
+  
+      .desc {
+        font-weight: normal;
+        font-size: 1.125rem;
+        color: rgba(#000, 0.7);
+      }
+      .buttons{
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+          margin-top:15px;
+      }
+  
+    }
+    
+}

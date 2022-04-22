@@ -3,14 +3,14 @@ import React, { FC, useEffect, useState } from 'react';
 import defaultImage from '../../assets/images/image 3.jpg';
 
 interface IImage {
-    file: Blob | null;
+    file: Blob | string | null;
     type: string;
 }
 const Image: FC<IImage> = ({ file, type }) => {
     const [image, setImage] = useState<string | ArrayBuffer | null>(null);
 
     useEffect(() => {
-        if (file) {
+        if (file && typeof file !== 'string') {
             const reader = new FileReader();
 
             reader.onloadend = () => {
@@ -18,6 +18,8 @@ const Image: FC<IImage> = ({ file, type }) => {
             };
 
             reader.readAsDataURL(file);
+        } else if (typeof file === 'string') {
+            setImage(file);
         }
     }, [file]);
 

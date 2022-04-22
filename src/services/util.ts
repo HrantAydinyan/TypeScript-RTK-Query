@@ -5,7 +5,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 let subscribers: any[] = [];
 let isAlreadyFetchingAccessToken = false;
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers) => {
         const token: string | null = localStorage.getItem('access');
