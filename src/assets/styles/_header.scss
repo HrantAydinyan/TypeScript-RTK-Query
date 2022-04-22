@@ -7,15 +7,15 @@
     }
     .MuiToolbar-regular {
         min-height: 80px !important;
+        display: flex;
+        justify-content: space-between;
     }
     .menu {
         display: flex;
         align-items: center;
         font-size: toRem(18);
         line-height: toRem(21);
-        width: 100%;
        
-        margin: 0 auto;
         .user-info{
             color: black;
             display: flex;
@@ -31,6 +31,8 @@
         }
     }
     &-toolbar {
-        float: right;
+        // float: right;
+        display: flex;
+        justify-content: space-around;
     }
 }

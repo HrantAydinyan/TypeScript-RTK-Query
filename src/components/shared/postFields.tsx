@@ -1,30 +1,30 @@
-import React, { ChangeEvent, FC, useEffect } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { Box, Grid } from '@material-ui/core';
 import { FormikProvider, useFormik } from 'formik';
-import defaultImg from '../assets/images/image 3.jpg';
 import Field from './fields/Field';
 import Image from './Image';
 import CategoryDrop from './categoryDropdown';
-import { postAPI } from '../../services/PostService';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { ICreatePost } from '../../models/createPost';
 import { cretaePostValidation } from '../../validations/cretaePostValidation';
+import { IPostResponseSingle } from '../../models/IPosts';
 
 interface IPostFields {
     isLoading: boolean;
-    defaultValues: ICreatePost;
+    defaultValues: IPostResponseSingle | null;
     onSubmitAction: (values: FormData) => void;
+    isCreate: boolean;
 }
 
-const PostFields: FC<IPostFields> = ({ isLoading, defaultValues, onSubmitAction }) => {
+const PostFields: FC<IPostFields> = ({ isLoading, defaultValues, onSubmitAction, isCreate }) => {
     const formik = useFormik({
         initialValues: {
-            title: '',
-            description: '',
-            category: 0,
-            image: null,
+            title: defaultValues?.title ?? '',
+            description: defaultValues?.description ?? '',
+            category: defaultValues?.category?.id ?? 0,
+            image: defaultValues?.image ?? null,
         } as ICreatePost,
         validationSchema: cretaePostValidation,
+        enableReinitialize: true,
         onSubmit: (values: ICreatePost) => {
             if (!values.image) {
                 alert('You need to add Image');
@@ -36,36 +36,35 @@ const PostFields: FC<IPostFields> = ({ isLoading, defaultValues, onSubmitAction 
             post.append('title', values.title);
             post.append('description', values.description);
             post.append('category', values.category.toString());
-            post.append('image', values.image);
-            console.log(values);
+            post.append('image', typeof values.image === 'string' ? '' : values.image);
             onSubmitAction(post);
         },
     });
 
-    const openFileInput = () => {
+    const onOpenFileInput = (): void => {
         document.getElementById('selectPostImg')?.click();
     };
 
-    const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeFile = (e: ChangeEvent<HTMLInputElement>): void => {
         if (e.target.files) {
             formik.setFieldValue('image', e?.target?.files[0]);
         }
     };
 
-    const setCategory = (value: number) => {
+    const onSetCategory = (value: number): void => {
         formik.setFieldValue('category', value);
     };
 
     return (
         <Box className="create-post-container">
-            <h1>New post</h1>
+            <h1>{isCreate ? 'New post' : 'Edit post'}</h1>
             <Box className="create-post-image">
-                <span onClick={openFileInput}>
+                <span onClick={onOpenFileInput}>
                     <Image file={formik.values.image} type="image" />
                 </span>
                 <input
                     type="file"
-                    onChange={handleChangeFile}
+                    onChange={onChangeFile}
                     style={{ display: 'none' }}
                     id="selectPostImg"
                 />
@@ -92,14 +91,14 @@ const PostFields: FC<IPostFields> = ({ isLoading, defaultValues, onSubmitAction 
                         </Grid>
                         <Grid item md={12} xs={12} className="create-fields-item">
                             <CategoryDrop
-                                setCategory={setCategory}
+                                setCategory={onSetCategory}
                                 value={formik.values.category}
                             />
                         </Grid>
                     </Grid>
                     <Box className="create-submit">
                         <button type="submit" disabled={isLoading}>
-                            Create
+                            {isCreate ? 'Create' : 'Edit'}
                         </button>
                     </Box>
                 </FormikProvider>

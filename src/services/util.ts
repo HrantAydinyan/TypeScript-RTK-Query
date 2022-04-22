@@ -2,8 +2,9 @@ import { fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react';
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
+// const baseUrl = process.env.REACT_APP_JSON_SERVER;
 
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
     baseUrl,
     prepareHeaders: (headers) => {
         const token: string | null = localStorage.getItem('access');

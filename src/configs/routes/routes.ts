@@ -1,5 +1,5 @@
 import * as ROUTES from './route_types';
-import { SignIn, SignUp, Home, CreatePost } from '../../pages';
+import { SignIn, SignUp, Home, CreatePost, EditPost } from '../../pages';
 
 export const PUBLIC_ROUTES = [
     {
@@ -27,6 +27,6 @@ export const PROTECTED_ROUTES = [
     {
         title: 'Edit Post',
         path: ROUTES.EDIT_POST,
-        component: CreatePost,
+        component: EditPost,
     },
 ];
