@@ -31,7 +31,7 @@ export const baseQueryWithReauth: BaseQueryFn<
             if (!isAlreadyFetchingAccessToken) await getAccessToken(refresh_token);
 
             const retryOriginalRequest: any = new Promise((resolve) => {
-                addSubscriber((accessToken: string) => {
+                addSubscriber(() => {
                     resolve(baseQuery(args, api, extraOptions));
                 });
             });
@@ -59,12 +59,14 @@ async function getAccessToken(refresh: string) {
         },
     })
         .then((res) => res.json())
-        .then((response: any) => {
+        .then((response) => {
             isAlreadyFetchingAccessToken = false;
             const accessToken = response?.access;
             const refreshToken = response?.refresh;
+
             localStorage.setItem('access', accessToken);
             localStorage.setItem('refresh', refreshToken);
+
             onAccessTokenFetched(accessToken);
             subscribers = [];
         });
