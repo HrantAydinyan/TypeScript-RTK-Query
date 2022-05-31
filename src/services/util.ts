@@ -28,7 +28,7 @@ export const baseQueryWithReauth: BaseQueryFn<
         const refresh_token: string | null = localStorage.getItem('refresh');
 
         if (refresh_token) {
-            if (!isAlreadyFetchingAccessToken) await getAccessToken(refresh_token);
+            if (!isAlreadyFetchingAccessToken) getAccessToken(refresh_token);
 
             const retryOriginalRequest: any = new Promise((resolve) => {
                 addSubscriber(() => {
